@@ -3,7 +3,7 @@
 A professional, feature-rich admin dashboard built for managing user data, financial details, and account statuses. This project demonstrates a clean architecture approach using modern web technologies, with a focus on data integrity, persistence, and modularity.
 
 ## 🚀 Live Demo
-*(Placeholder for deployment link - e.g. Vercel URL)*
+https://muhammed-badmus-lendsqr-fe-test.vercel.app/
 
 ---
 
