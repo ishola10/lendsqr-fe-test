@@ -1,0 +1,192 @@
+@use "../../styles/variables" as vars;
+
+.sidebar {
+    width: 253px;
+    background-color: vars.$background-white;
+    height: calc(100vh - 70px);
+    position: fixed;
+    top: 70px;
+    left: 0;
+    overflow-y: auto;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.04);
+    padding-top: 20px;
+    z-index: 900;
+    transition: transform 0.3s ease-in-out;
+
+    @media (max-width: 992px) {
+        transform: translateX(-100%);
+        top: 0;
+        height: 100vh;
+        z-index: 1100;
+
+        &.open {
+            transform: translateX(0);
+        }
+    }
+
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 100, 0.1);
+        border-radius: 10px;
+    }
+
+    .closeBtn {
+        display: none;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: none;
+        border: none;
+        cursor: pointer;
+
+        @media (max-width: 992px) {
+            display: block;
+        }
+    }
+
+    .switchOrg {
+        display: flex;
+        align-items: center;
+        padding: 0 30px;
+        margin-bottom: 25px;
+        gap: 10px;
+        color: vars.$heading-blue;
+        cursor: pointer;
+
+        span {
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .chevron {
+            margin-left: auto;
+        }
+    }
+
+    .dashboardLink {
+        padding: 0;
+        margin-bottom: 5px;
+
+        .disabledItem {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 30px;
+            color: rgba(33, 63, 125, 0.4);
+            font-size: 16px;
+            cursor: default;
+            opacity: 0.6;
+
+            svg {
+                opacity: 0.5;
+            }
+        }
+
+        a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 30px;
+            color: rgba(33, 63, 125, 0.6);
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.2s;
+            opacity: 0.6;
+
+            &.active {
+                background-color: rgba(57, 205, 204, 0.06);
+                color: vars.$heading-blue;
+                border-left: 3px solid vars.$primary-teal;
+                padding-left: 27px;
+                opacity: 1;
+            }
+
+            &:hover:not(.active) {
+                background-color: rgba(0, 0, 0, 0.02);
+            }
+        }
+    }
+
+    .navSections {
+        .section {
+            margin-bottom: 25px;
+
+            .sectionTitle {
+                font-size: 12px;
+                font-weight: 500;
+                color: vars.$text-grey;
+                padding: 0 30px;
+                margin-bottom: 12px;
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+            }
+
+            ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+
+                li {
+                    .disabledItem {
+                        display: flex;
+                        align-items: center;
+                        gap: 12px;
+                        padding: 10px 30px;
+                        color: rgba(33, 63, 125, 0.4);
+                        font-size: 16px;
+                        cursor: default;
+
+                        svg {
+                            opacity: 0.5;
+                        }
+                    }
+
+                    a {
+                        display: flex;
+                        align-items: center;
+                        gap: 12px;
+                        padding: 10px 30px;
+                        color: rgba(33, 63, 125, 0.7);
+                        text-decoration: none;
+                        font-size: 16px;
+                        transition: all 0.2s;
+
+                        &.active {
+                            background-color: rgba(57, 205, 204, 0.06);
+                            color: vars.$heading-blue;
+                            border-left: 3px solid vars.$primary-teal;
+                            padding-left: 27px;
+                            opacity: 1;
+                        }
+
+                        &:hover:not(.active) {
+                            background-color: rgba(0, 0, 0, 0.02);
+                        }
+
+                        svg {
+                            opacity: 0.8;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.overlay {
+    display: none;
+
+    @media (max-width: 992px) {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1050;
+    }
+}

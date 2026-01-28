@@ -1,0 +1,18 @@
+@use "./variables" as variables;
+@use "./mixins" as mixins;
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  font-family: var(--font-work-sans), sans-serif;
+  background-color: #fbfbfb;
+  color: #545f7d;
+}

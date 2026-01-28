@@ -1,0 +1,239 @@
+@use "@/styles/variables" as vars;
+
+.container {
+    padding: 30px;
+    margin: 0 auto;
+
+    @media (max-width: 992px) {
+        padding: 20px;
+    }
+
+    .backBtn {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        text-decoration: none;
+        color: vars.$text-grey;
+        font-size: 14px;
+        margin-bottom: 10px;
+
+        &:hover {
+            opacity: 0.8;
+        }
+
+        svg {
+            width: 30px;
+            height: 15px;
+        }
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+
+        @media (max-width: 600px) {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: 500;
+            color: vars.$heading-blue;
+        }
+
+        .actions {
+            display: flex;
+            gap: 20px;
+
+            button {
+                height: 40px;
+                padding: 0 16px;
+                border-radius: 8px;
+                font-size: 14px;
+                font-weight: 600;
+                text-transform: uppercase;
+                cursor: pointer;
+                transition: all 0.2s;
+                letter-spacing: 0.1em;
+            }
+
+            .blacklistBtn {
+                background: none;
+                border: 1px solid #e4033b;
+                color: #e4033b;
+
+                &:hover {
+                    background: rgba(228, 3, 59, 0.05);
+                }
+            }
+
+            .activateBtn {
+                background: none;
+                border: 1px solid vars.$primary-teal;
+                color: vars.$primary-teal;
+
+                &:hover {
+                    background: rgba(57, 205, 204, 0.05);
+                }
+            }
+        }
+    }
+
+    .profileBar {
+        background: vars.$background-white;
+        border: 1px solid rgba(33, 63, 125, 0.06);
+        box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04);
+        border-radius: 4px;
+        padding: 16px 20px 0 20px;
+        margin-bottom: 20px;
+
+        .summaryInfo {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+
+            .avatarCircle {
+                width: 72px;
+                height: 72px;
+                background: #d5dbe4;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                svg {
+                    width: 36px;
+                    height: 36px;
+                }
+            }
+
+            .userNameId {
+                h3 {
+                    font-size: 20px;
+                    color: vars.$heading-blue;
+                    margin-bottom: 2px;
+                }
+
+                p {
+                    font-size: 14px;
+                    color: vars.$text-grey;
+                }
+            }
+
+            .divider {
+                width: 1px;
+                height: 60px;
+                background: rgba(84, 95, 125, 0.2);
+
+                @media (max-width: 768px) {
+                    display: none;
+                }
+            }
+
+            .userTier {
+                p {
+                    font-size: 14px;
+                    color: vars.$text-grey;
+                    margin-bottom: 6px;
+                }
+
+                .stars {
+                    display: flex;
+                    gap: 5px;
+                }
+            }
+
+            .bankInfo {
+                h3 {
+                    font-size: 20px;
+                    color: vars.$heading-blue;
+                    margin-bottom: 2px;
+                }
+
+                p {
+                    font-size: 14px;
+                    color: vars.$heading-blue;
+                }
+            }
+        }
+
+        .tabs {
+            display: flex;
+            overflow-x: auto;
+            justify-content: space-between;
+            margin-top: 8px;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
+            .tab {
+                background: none;
+                border: none;
+                padding-bottom: 10px;
+                font-size: 14px;
+                color: rgba(0, 0, 0, 0.8);
+                cursor: pointer;
+                white-space: nowrap;
+                border-bottom: 2px solid transparent;
+                flex: 1;
+                text-align: center;
+                min-width: 130px;
+                transition: all 0.2s;
+
+                &:hover {
+                    color: vars.$primary-teal;
+                }
+
+                &.active {
+                    color: vars.$primary-teal;
+                    border-bottom-color: vars.$primary-teal;
+                }
+            }
+        }
+    }
+
+    .mainCard {
+        background: vars.$background-white;
+        border: 1px solid rgba(33, 63, 125, 0.06);
+        box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04);
+        border-radius: 4px;
+        padding: 16px 20px;
+
+        .infoSection {
+            margin-bottom: 16px;
+            border-bottom: 1px solid rgba(33, 63, 125, 0.1);
+            padding-bottom: 16px;
+
+            &:last-child {
+                border-bottom: none;
+                margin-bottom: 0;
+                padding-bottom: 0;
+            }
+
+            h4 {
+                font-size: 16px;
+                font-weight: 600;
+                color: vars.$heading-blue;
+                margin-bottom: 16px;
+            }
+
+            .grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+                gap: 16px;
+                row-gap: 16px;
+
+                @media (min-width: 1200px) {
+                    grid-template-columns: repeat(5, 1fr);
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,32 @@
+@use "../../styles/variables" as vars;
+
+.layoutWrapper {
+    min-height: 100vh;
+    background-color: #fbfbfb;
+    display: flex;
+    flex-direction: column;
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+.mainContainer {
+    display: flex;
+    flex: 1;
+    padding-top: 70px;
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+.contentArea {
+    flex: 1;
+    margin-left: 253px;
+    min-height: calc(100vh - 70px);
+    background-color: #fbfbfb;
+    width: calc(100% - 253px);
+
+    @media (max-width: 992px) {
+        margin-left: 0;
+        width: 100%;
+        padding: 30px 15px;
+    }
+}

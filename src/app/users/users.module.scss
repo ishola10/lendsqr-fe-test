@@ -1,0 +1,32 @@
+@use "../../styles/variables" as vars;
+
+.usersPage {
+    padding: 30px;
+
+    @media (max-width: 768px) {
+        padding: 20px;
+    }
+
+    .pageTitle {
+        font-size: 24px;
+        font-weight: 500;
+        color: vars.$heading-blue;
+        margin-bottom: 20px;
+    }
+
+    .statsGrid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 26px;
+        margin-bottom: 20px;
+
+        @media (max-width: 1200px) {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 576px) {
+            grid-template-columns: 1fr;
+        }
+    }
+}

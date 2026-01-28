@@ -1,0 +1,227 @@
+@use "../../styles/variables" as vars;
+
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 4px;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.pulse {
+    animation: pulse 1.5s ease-in-out infinite;
+    background-color: #f3f3f3;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.6;
+    }
+}
+
+.statsGridSkeleton {
+    display: flex;
+    gap: 26px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+
+    &>div {
+        flex: 1;
+        min-width: 240px;
+    }
+}
+
+.statCardSkeleton {
+    background-color: vars.$background-white;
+    border: 1px solid rgba(33, 63, 125, 0.06);
+    box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04);
+    border-radius: 4px;
+    padding: 20px 30px;
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .iconSkeleton {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+
+    .labelSkeleton {
+        width: 60%;
+        height: 14px;
+    }
+
+    .valueSkeleton {
+        width: 40%;
+        height: 24px;
+    }
+}
+
+.tableSkeleton {
+    background-color: vars.$background-white;
+    border: 1px solid rgba(33, 63, 125, 0.06);
+    box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04);
+    border-radius: 4px;
+    padding: 30px;
+
+    .tableRowSkeleton {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 20px;
+        padding: 24px 0;
+        border-bottom: 1px solid rgba(33, 63, 125, 0.07);
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        .cellSkeleton {
+            height: 14px;
+            width: 100%;
+        }
+    }
+}
+
+.detailsSkeleton {
+    .backBtnSkeleton {
+        width: 100px;
+        height: 16px;
+        margin-bottom: 20px;
+    }
+
+    .headerSkeleton {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+
+        .titleSkeleton {
+            width: 150px;
+            height: 28px;
+        }
+
+        .actionsSkeleton {
+            display: flex;
+            gap: 20px;
+
+            .btnSkeleton {
+                width: 120px;
+                height: 40px;
+            }
+        }
+    }
+
+    .profileBarSkeleton {
+        background: vars.$background-white;
+        border: 1px solid rgba(33, 63, 125, 0.06);
+        box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04);
+        border-radius: 4px;
+        padding: 30px;
+        margin-bottom: 30px;
+
+        .summarySkeleton {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 40px;
+
+            .avatarSkeleton {
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+            }
+
+            .infoSkeleton {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+                .nameSkeleton {
+                    width: 120px;
+                    height: 22px;
+                }
+
+                .idSkeleton {
+                    width: 80px;
+                    height: 14px;
+                }
+            }
+        }
+
+        .tabsSkeleton {
+            display: flex;
+            gap: 30px;
+
+            .tabSkeleton {
+                width: 80px;
+                height: 16px;
+            }
+        }
+    }
+
+    .mainCardSkeleton {
+        background: vars.$background-white;
+        border: 1px solid rgba(33, 63, 125, 0.06);
+        box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04);
+        border-radius: 4px;
+        padding: 30px;
+
+        .sectionSkeleton {
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(33, 63, 125, 0.1);
+
+            &:last-child {
+                border-bottom: none;
+                margin-bottom: 0;
+            }
+
+            .sectionTitleSkeleton {
+                width: 140px;
+                height: 18px;
+                margin-bottom: 20px;
+            }
+
+            .gridSkeleton {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 20px;
+
+                .itemSkeleton {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
+
+                    .itemLabelSkeleton {
+                        width: 60px;
+                        height: 12px;
+                    }
+
+                    .itemValueSkeleton {
+                        width: 100px;
+                        height: 14px;
+                    }
+                }
+            }
+        }
+    }
+}

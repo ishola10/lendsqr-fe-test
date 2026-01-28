@@ -1,66 +1,87 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
 
-export default function Home() {
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
+import { LoginInput } from "@/components/features/auth/LoginInput";
+import { LoginButton } from "@/components/features/auth/LoginButton";
+import styles from "./login.module.scss";
+
+export default function LoginPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const router = useRouter();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Login attempt with:", { email, password });
+    router.push("/dashboard");
+  };
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className={styles.loginPage}>
+      <section className={styles.leftSection}>
+        <div className={styles.logoContainer}>
+          <Image
+            src="/logo.svg"
+            alt="Lendsqr Logo"
+            width={174}
+            height={36}
+            priority
+          />
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+        <div className={styles.illustrationContainer}>
+          <Image
+            src="/images/pablo-sign-in.png"
+            alt="Sign in illustration"
+            width={600}
+            height={337}
+            priority
+          />
+        </div>
+      </section>
+
+      <section className={styles.rightSection}>
+        <div className={styles.logoContainerMobile}>
+          <Image
+            src="/logo.svg"
+            alt="Lendsqr Logo"
+            width={140}
+            height={30}
+          />
+        </div>
+
+        <div className={styles.formContainer}>
+          <h1>Welcome!</h1>
+          <p>Enter details to login.</p>
+
+          <form onSubmit={handleSubmit}>
+            <LoginInput
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              id="email"
             />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+            <LoginInput
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              id="password"
+            />
+
+            <Link href="/forgot-password" className={styles.forgotPassword}>
+              Forgot PASSWORD?
+            </Link>
+
+            <LoginButton>Log In</LoginButton>
+          </form>
         </div>
-      </main>
+      </section>
     </div>
   );
 }

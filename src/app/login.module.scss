@@ -1,0 +1,96 @@
+@use "../styles/variables" as vars;
+
+.loginPage {
+    display: flex;
+    min-height: 100vh;
+    background-color: vars.$background-white;
+    font-family: "Avenir Next", sans-serif;
+
+    .leftSection {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 60px 0 60px 60px;
+        background-color: #fff;
+
+        @media (max-width: 992px) {
+            display: none;
+        }
+
+        .logoContainer {
+            margin-bottom: 120px;
+        }
+
+        .illustrationContainer {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-right: 60px;
+
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+        }
+    }
+
+    .rightSection {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 40px;
+        box-shadow: 0px 15px 90px 0px rgba(0, 0, 0, 0.03);
+
+        @media (max-width: 992px) {
+            width: 100%;
+            box-shadow: none;
+        }
+
+        .logoContainerMobile {
+            display: none;
+            align-self: flex-start;
+            margin-bottom: 50px;
+
+            @media (max-width: 992px) {
+                display: block;
+            }
+        }
+
+        .formContainer {
+            width: 100%;
+            max-width: 450px;
+
+            h1 {
+                color: vars.$heading-blue;
+                font-size: 40px;
+                font-weight: 700;
+                margin-bottom: 10px;
+                letter-spacing: -0.04em;
+            }
+
+            p {
+                color: vars.$text-grey;
+                font-size: 20px;
+                margin-bottom: 60px;
+            }
+
+            .forgotPassword {
+                display: block;
+                margin-bottom: 30px;
+                color: vars.$primary-teal;
+                font-size: 12px;
+                font-weight: 600;
+                text-decoration: none;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}

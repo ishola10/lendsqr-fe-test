@@ -1,0 +1,91 @@
+@use "@/styles/variables" as vars;
+
+.container {
+    width: 100%;
+}
+
+.tableWrapper {
+    background-color: vars.$background-white;
+    border: 1px solid rgba(33, 63, 125, 0.06);
+    box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04);
+    border-radius: 4px;
+    overflow-x: auto;
+    margin-top: 10px;
+
+    &::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 100, 0.1);
+        border-radius: 10px;
+    }
+}
+
+.userTable {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+
+    thead {
+        th {
+            padding: 20px 15px 15px 15px;
+            font-size: 12px;
+            font-weight: 600;
+            color: vars.$text-grey;
+            white-space: nowrap;
+
+            .headerContent {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+        }
+    }
+
+    tbody {
+        tr {
+            border-bottom: 1px solid rgba(33, 63, 125, 0.07);
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            &:hover {
+                background-color: rgba(33, 63, 125, 0.01);
+            }
+        }
+
+        td {
+            padding: 16px 15px;
+            font-size: 14px;
+            color: vars.$text-grey;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+    }
+
+    .relativeTh {
+        position: relative;
+    }
+
+    .relativeTd {
+        position: relative;
+    }
+
+    .actionBtn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: vars.$text-grey;
+        opacity: 0.8;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}

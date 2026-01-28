@@ -1,0 +1,45 @@
+@use "@/styles/variables" as vars;
+
+.inputContainer {
+    position: relative;
+    width: 100%;
+    margin-bottom: 24px;
+
+    .input {
+        width: 100%;
+        padding: 15px 16px;
+        border: 2px solid vars.$border-grey;
+        border-radius: 5px;
+        font-size: 14px;
+        color: vars.$text-grey;
+        outline: none;
+        transition: border-color 0.2s;
+
+        &::placeholder {
+            color: rgba(84, 95, 125, 0.6);
+        }
+
+        &:focus {
+            border-color: vars.$primary-teal;
+        }
+    }
+
+    .toggleButton {
+        position: absolute;
+        right: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: vars.$primary-teal;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        letter-spacing: 0.1em;
+        padding: 5px;
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+}

@@ -1,0 +1,44 @@
+@use "../../styles/variables" as vars;
+
+.statCard {
+  background-color: vars.$background-white;
+  border: 1px solid rgba(33, 63, 125, 0.06);
+  box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04);
+  border-radius: 4px;
+
+  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  height: 100%;
+}
+
+.iconContainer {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 6px;
+}
+
+.label {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: vars.$text-grey;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.value {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: vars.$heading-blue;
+  line-height: 1.2;
+}

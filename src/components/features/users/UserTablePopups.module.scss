@@ -1,0 +1,120 @@
+@use "@/styles/variables" as vars;
+
+.filterPopup {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 270px;
+    background: vars.$background-white;
+    border: 1px solid rgba(84, 95, 125, 0.14);
+    box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04);
+    border-radius: 4px;
+    padding: 30px 20px;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .filterField {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        label {
+            font-size: 14px;
+            font-weight: 500;
+            color: vars.$text-grey;
+        }
+
+        input,
+        select {
+            height: 40px;
+            padding: 0 12px;
+            border: 1px solid rgba(33, 63, 125, 0.2);
+            border-radius: 8px;
+            font-size: 14px;
+            color: vars.$text-grey;
+            outline: none;
+
+            &::placeholder {
+                color: rgba(84, 95, 125, 0.7);
+            }
+        }
+    }
+
+    .filterButtons {
+        display: flex;
+        gap: 14px;
+        margin-top: 10px;
+
+        button {
+            flex: 1;
+            height: 40px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .resetBtn {
+            background: none;
+            border: 1px solid vars.$text-grey;
+            color: vars.$text-grey;
+
+            &:hover {
+                background: rgba(33, 63, 125, 0.05);
+            }
+        }
+
+        .submitBtn {
+            background: vars.$primary-teal;
+            border: none;
+            color: white;
+
+            &:hover {
+                opacity: 0.9;
+            }
+        }
+    }
+}
+
+.actionPopup {
+    position: absolute;
+    right: 0;
+    top: 35px;
+    width: 180px;
+    background: vars.$background-white;
+    border: 1px solid rgba(84, 95, 125, 0.04);
+    box-shadow: 3px 5px 20px rgba(0, 0, 0, 0.04);
+    border-radius: 4px;
+    padding: 10px 0;
+    z-index: 1002;
+    display: flex;
+    flex-direction: column;
+
+    .actionItem {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 20px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        color: vars.$text-grey;
+        transition: all 0.2s;
+        text-align: left;
+
+        &:hover {
+            background: rgba(33, 63, 125, 0.05);
+        }
+
+        svg {
+            width: 16px;
+            height: 16px;
+            color: vars.$heading-blue;
+        }
+    }
+}
