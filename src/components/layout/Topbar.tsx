@@ -3,7 +3,7 @@
 import Image from "next/image";
 import styles from "./Topbar.module.scss";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 interface TopbarProps {
     onMenuClick?: () => void;
@@ -12,8 +12,8 @@ interface TopbarProps {
 export const Topbar = ({ onMenuClick }: TopbarProps) => {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const [searchTerm, setSearchTerm] = useState(searchParams.get("search") || "");
-    const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
+    const [searchTerm, setSearchTerm] = useState(() => searchParams.get("search") || "");
+    const [timer, setTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
 
     const handleSearch = useCallback((term: string) => {
         setSearchTerm(term);
@@ -27,11 +27,18 @@ export const Topbar = ({ onMenuClick }: TopbarProps) => {
             } else {
                 params.delete("search");
             }
-            router.push(`?${params.toString()}`);
+            const query = params.toString();
+            router.push(query ? `?${query}` : window.location.pathname);
         }, 300);
 
         setTimer(newTimer);
     }, [router, searchParams, timer]);
+
+    useEffect(() => {
+        return () => {
+            if (timer) clearTimeout(timer);
+        };
+    }, [timer]);
 
     return (
         <header className={styles.topbar}>
@@ -54,7 +61,7 @@ export const Topbar = ({ onMenuClick }: TopbarProps) => {
                         value={searchTerm}
                         onChange={(e) => handleSearch(e.target.value)}
                     />
-                    <button className={styles.searchButton}>
+                    <button className={styles.searchButton} type="button" aria-label="Search">
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M13.48 11.67L10.39 8.58C11.01 7.68 11.37 6.6 11.37 5.44C11.37 2.44 8.93 0 5.94 0C2.95 0 0.5 2.44 0.5 5.44C0.5 8.44 2.94 10.88 5.94 10.88C7.1 10.88 8.18 10.51 9.08 9.9L12.17 12.98C12.35 13.16 12.58 13.25 12.82 13.25C13.06 13.25 13.29 13.16 13.47 12.98C13.84 12.62 13.84 12.03 13.48 11.67ZM5.94 9.13C3.91 9.13 2.25 7.48 2.25 5.44C2.25 3.4 3.9 1.75 5.94 1.75C7.98 1.75 9.63 3.4 9.63 5.44C9.63 7.48 7.97 9.13 5.93 9.13H5.94Z" fill="white" />
                         </svg>

@@ -37,6 +37,12 @@
         align-items: center;
         gap: 2px;
 
+        @media (max-width: 576px) {
+            flex-wrap: wrap;
+            justify-content: center;
+            row-gap: 8px;
+        }
+
         .pageBtn {
             background: none;
             border: none;

@@ -24,6 +24,14 @@ export function UsersContent() {
         );
     });
 
+    const activeUsersCount = users.filter((user) => {
+        const normalizedStatus = String(user.status || "Active").toLowerCase();
+        return normalizedStatus === "active";
+    }).length;
+
+    const usersWithLoansCount = users.filter((user) => Number(user.education?.loanRepayment || 0) > 0).length;
+    const usersWithSavingsCount = users.filter((user) => Number(user.account?.balance || 0) > 0).length;
+
     if (loading) {
         return (
             <>
@@ -49,19 +57,19 @@ export function UsersContent() {
                     <StatCard
                         icon="/icons/active-users-stats.svg"
                         label="Active Users"
-                        value={users.length.toLocaleString()}
+                        value={activeUsersCount.toLocaleString()}
                         iconBgColor="rgba(87, 24, 255, 0.1)"
                     />
                     <StatCard
                         icon="/icons/users-loans-stats.svg"
                         label="Users with Loans"
-                        value="12,453"
+                        value={usersWithLoansCount.toLocaleString()}
                         iconBgColor="rgba(245, 95, 68, 0.1)"
                     />
                     <StatCard
                         icon="/icons/users-savings-stats.svg"
                         label="Users with Savings"
-                        value="102,453"
+                        value={usersWithSavingsCount.toLocaleString()}
                         iconBgColor="rgba(255, 51, 102, 0.1)"
                     />
             </div>

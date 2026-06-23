@@ -6,18 +6,21 @@ import { User } from "@/types/user";
 import styles from "./UserDetails.module.scss";
 
 export const UserDetailsClient = ({ user: initialUser }: { user: User }) => {
-    const [user, setUser] = useState<User>(initialUser);
-    const [activeTab, setActiveTab] = useState("General Details");
+    const [user, setUser] = useState<User>(() => {
+        if (typeof window === "undefined") return initialUser;
 
-    useEffect(() => {
         const savedOverrides = localStorage.getItem("lendsqr_status_overrides");
-        if (savedOverrides) {
-            const overrides = JSON.parse(savedOverrides);
-            if (overrides[initialUser.id]) {
-                setUser((prev: any) => ({ ...prev, status: overrides[initialUser.id] }));
-            }
+        if (!savedOverrides) return initialUser;
+
+        try {
+            const overrides = JSON.parse(savedOverrides) as Record<string, string>;
+            if (!overrides[initialUser.id]) return initialUser;
+            return { ...initialUser, status: overrides[initialUser.id] };
+        } catch {
+            return initialUser;
         }
-    }, [initialUser.id]);
+    });
+    const [activeTab, setActiveTab] = useState("General Details");
 
     const updateStatus = (newStatus: string) => {
         const savedOverrides = localStorage.getItem("lendsqr_status_overrides");
@@ -34,6 +37,135 @@ export const UserDetailsClient = ({ user: initialUser }: { user: User }) => {
     }, [user]);
 
     const tabs = ["General Details", "Documents", "Bank Details", "Loans", "Savings", "App and System"];
+
+    const renderTabContent = () => {
+        if (activeTab === "General Details") {
+            return (
+                <>
+                    <section className={styles.infoSection}>
+                        <h4>Personal Information</h4>
+                        <div className={styles.grid}>
+                            <DetailItem label="Full Name" value={user.profile?.fullName} />
+                            <DetailItem label="Phone Number" value={user.phoneNumber} />
+                            <DetailItem label="Email Address" value={user.email} />
+                            <DetailItem label="BVN" value={user.profile?.bvn || "N/A"} />
+                            <DetailItem label="Gender" value={user.profile?.gender} />
+                            <DetailItem label="Marital Status" value={user.profile?.maritalStatus} />
+                            <DetailItem label="Children" value={user.profile?.children || "None"} />
+                            <DetailItem label="Type of Residence" value={user.profile?.residence} />
+                        </div>
+                    </section>
+
+                    <section className={styles.infoSection}>
+                        <h4>Education and Employment</h4>
+                        <div className={styles.grid}>
+                            <DetailItem label="Level of Education" value={user.education?.level} />
+                            <DetailItem label="Employment Status" value={user.education?.employmentStatus} />
+                            <DetailItem label="Sector of Employment" value={user.education?.sector} />
+                            <DetailItem label="Duration of Employment" value={user.education?.duration} />
+                            <DetailItem label="Office Email" value={user.education?.officeEmail} />
+                            <DetailItem label="Monthly Income" value={user.education?.monthlyIncome ? `₦${user.education.monthlyIncome[0]?.toLocaleString()}.00 - ₦${user.education.monthlyIncome[1]?.toLocaleString()}.00` : "N/A"} />
+                            <DetailItem label="Loan Repayment" value={user.education?.loanRepayment ? `₦${Number(user.education.loanRepayment).toLocaleString()}` : "N/A"} />
+                        </div>
+                    </section>
+
+                    <section className={styles.infoSection}>
+                        <h4>Socials</h4>
+                        <div className={styles.grid}>
+                            <DetailItem label="Twitter" value={user.socials?.twitter} />
+                            <DetailItem label="Facebook" value={user.socials?.facebook} />
+                            <DetailItem label="Instagram" value={user.socials?.instagram} />
+                        </div>
+                    </section>
+
+                    <section className={styles.infoSection}>
+                        <h4>Guarantor</h4>
+                        <div className={styles.grid}>
+                            <DetailItem label="Full Name" value={user.guarantor?.fullName} />
+                            <DetailItem label="Phone Number" value={user.guarantor?.phoneNumber} />
+                            <DetailItem label="Email Address" value={user.guarantor?.email} />
+                            <DetailItem label="Relationship" value={user.guarantor?.relationship} />
+                        </div>
+                    </section>
+                </>
+            );
+        }
+
+        if (activeTab === "Documents") {
+            return (
+                <section className={styles.infoSection}>
+                    <h4>Identity and Verification</h4>
+                    <div className={styles.grid}>
+                        <DetailItem label="User ID" value={user.id} />
+                        <DetailItem label="BVN" value={user.profile?.bvn || "N/A"} />
+                        <DetailItem label="Full Name" value={user.profile?.fullName} />
+                        <DetailItem label="Email Address" value={user.email} />
+                    </div>
+                </section>
+            );
+        }
+
+        if (activeTab === "Bank Details") {
+            return (
+                <section className={styles.infoSection}>
+                    <h4>Bank Information</h4>
+                    <div className={styles.grid}>
+                        <DetailItem label="Bank Name" value={user.account?.bank} />
+                        <DetailItem label="Account Number" value={user.account?.accountNumber} />
+                        <DetailItem label="Currency" value={user.account?.currency || "NGN"} />
+                        <DetailItem
+                            label="Current Balance"
+                            value={`₦${Number(user.account?.balance || 0).toLocaleString(undefined, {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                            })}`}
+                        />
+                    </div>
+                </section>
+            );
+        }
+
+        if (activeTab === "Loans") {
+            return (
+                <section className={styles.infoSection}>
+                    <h4>Loan Overview</h4>
+                    <div className={styles.grid}>
+                        <DetailItem label="Loan Repayment" value={user.education?.loanRepayment ? `₦${Number(user.education.loanRepayment).toLocaleString()}` : "N/A"} />
+                        <DetailItem label="Employment Status" value={user.education?.employmentStatus} />
+                        <DetailItem label="Sector" value={user.education?.sector} />
+                        <DetailItem label="Monthly Income" value={user.education?.monthlyIncome ? `₦${user.education.monthlyIncome[0]?.toLocaleString()} - ₦${user.education.monthlyIncome[1]?.toLocaleString()}` : "N/A"} />
+                    </div>
+                </section>
+            );
+        }
+
+        if (activeTab === "Savings") {
+            return (
+                <section className={styles.infoSection}>
+                    <h4>Savings Overview</h4>
+                    <div className={styles.grid}>
+                        <DetailItem label="Available Balance" value={`₦${Number(user.account?.balance || 0).toLocaleString()}`} />
+                        <DetailItem label="Currency" value={user.account?.currency || "NGN"} />
+                        <DetailItem label="Account Number" value={user.account?.accountNumber} />
+                        <DetailItem label="Bank Name" value={user.account?.bank} />
+                    </div>
+                </section>
+            );
+        }
+
+        return (
+            <section className={styles.infoSection}>
+                <h4>App and System</h4>
+                <div className={styles.grid}>
+                    <DetailItem label="Status" value={user.status || "Active"} />
+                    <DetailItem label="Organization" value={user.orgName || user.organization} />
+                    <DetailItem label="Date Joined" value={user.createdAt || user.dateJoined} />
+                    <DetailItem label="Last Active" value={user.lastActiveDate} />
+                    <DetailItem label="User Handle" value={user.userName || user.username} />
+                </div>
+            </section>
+        );
+    };
 
     return (
         <>
@@ -86,59 +218,7 @@ export const UserDetailsClient = ({ user: initialUser }: { user: User }) => {
             </div>
 
             <div className={styles.mainCard}>
-                {activeTab === "General Details" ? (
-                    <>
-                        <section className={styles.infoSection}>
-                            <h4>Personal Information</h4>
-                            <div className={styles.grid}>
-                                <DetailItem label="Full Name" value={user.profile?.fullName} />
-                                <DetailItem label="Phone Number" value={user.phoneNumber} />
-                                <DetailItem label="Email Address" value={user.email} />
-                                <DetailItem label="BVN" value={user.profile?.bvn || "7060780922"} />
-                                <DetailItem label="Gender" value={user.profile?.gender} />
-                                <DetailItem label="Marital Status" value={user.profile?.maritalStatus} />
-                                <DetailItem label="Children" value={user.profile?.children || "None"} />
-                                <DetailItem label="Type of Residence" value={user.profile?.residence} />
-                            </div>
-                        </section>
-
-                        <section className={styles.infoSection}>
-                            <h4>Education and Employment</h4>
-                            <div className={styles.grid}>
-                                <DetailItem label="Level of Education" value={user.education?.level} />
-                                <DetailItem label="Employment Status" value={user.education?.employmentStatus} />
-                                <DetailItem label="Sector of Employment" value={user.education?.sector} />
-                                <DetailItem label="Duration of Employment" value={user.education?.duration} />
-                                <DetailItem label="Office Email" value={user.education?.officeEmail} />
-                                <DetailItem label="Monthly Income" value={user.education?.monthlyIncome ? `₦${user.education.monthlyIncome[0]?.toLocaleString()}.00 - ₦${user.education.monthlyIncome[1]?.toLocaleString()}.00` : "N/A"} />
-                                <DetailItem label="Loan Repayment" value={user.education?.loanRepayment ? `₦${Number(user.education.loanRepayment).toLocaleString()}` : "N/A"} />
-                            </div>
-                        </section>
-
-                        <section className={styles.infoSection}>
-                            <h4>Socials</h4>
-                            <div className={styles.grid}>
-                                <DetailItem label="Twitter" value={user.socials?.twitter} />
-                                <DetailItem label="Facebook" value={user.socials?.facebook} />
-                                <DetailItem label="Instagram" value={user.socials?.instagram} />
-                            </div>
-                        </section>
-
-                        <section className={styles.infoSection}>
-                            <h4>Guarantor</h4>
-                            <div className={styles.grid}>
-                                <DetailItem label="Full Name" value={user.guarantor?.fullName} />
-                                <DetailItem label="Phone Number" value={user.guarantor?.phoneNumber} />
-                                <DetailItem label="Email Address" value={user.guarantor?.email} />
-                                <DetailItem label="Relationship" value={user.guarantor?.relationship} />
-                            </div>
-                        </section>
-                    </>
-                ) : (
-                    <div style={{ padding: '40px', textAlign: 'center', color: '#545F7D', fontSize: '18px' }}>
-                        Soon to be implemented... Coming Soon!
-                    </div>
-                )}
+                {renderTabContent()}
             </div>
         </>
     );

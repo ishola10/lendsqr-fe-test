@@ -7,6 +7,8 @@ interface LoginInputProps {
     value: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     id?: string;
+    required?: boolean;
+    autoComplete?: string;
 }
 
 export const LoginInput = ({
@@ -15,6 +17,8 @@ export const LoginInput = ({
     value,
     onChange,
     id,
+    required = false,
+    autoComplete,
 }: LoginInputProps) => {
     const [showPassword, setShowPassword] = useState(false);
 
@@ -30,6 +34,8 @@ export const LoginInput = ({
                 value={value}
                 onChange={onChange}
                 className={styles.input}
+                required={required}
+                autoComplete={autoComplete}
             />
             {isPassword && (
                 <button

@@ -64,7 +64,7 @@ export const Pagination = ({
                     onClick={() => onPageChange(currentPage - 1)}
                 >
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9.45039 12.25L4.20039 7L9.45039 1.75" stroke="#213F7D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M9.45039 12.25L4.20039 7L9.45039 1.75" stroke="#213F7D" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                 </button>
                 {renderPageNumbers()}
@@ -74,7 +74,7 @@ export const Pagination = ({
                     onClick={() => onPageChange(currentPage + 1)}
                 >
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4.54961 1.75L9.79961 7L4.54961 12.25" stroke="#213F7D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M4.54961 1.75L9.79961 7L4.54961 12.25" stroke="#213F7D" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                 </button>
             </div>

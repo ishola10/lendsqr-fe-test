@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,12 +11,33 @@ import styles from "./login.module.scss";
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const router = useRouter();
 
+  useEffect(() => {
+    if (document.cookie.includes("lendsqr_auth=1")) {
+      router.replace("/dashboard");
+    }
+  }, [router]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Login attempt with:", { email, password });
+    const normalizedEmail = email.trim().toLowerCase();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(normalizedEmail)) {
+      setError("Enter a valid email address.");
+      return;
+    }
+
+    if (password.trim().length < 6) {
+      setError("Password must be at least 6 characters.");
+      return;
+    }
+
+    setError("");
+    document.cookie = "lendsqr_auth=1; path=/; max-age=86400; samesite=lax";
     router.push("/dashboard");
   };
 
@@ -64,6 +85,8 @@ export default function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               id="email"
+              required
+              autoComplete="email"
             />
 
             <LoginInput
@@ -72,11 +95,15 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               id="password"
+              required
+              autoComplete="current-password"
             />
 
             <Link href="/forgot-password" className={styles.forgotPassword}>
               Forgot PASSWORD?
             </Link>
+
+            {error && <p className={styles.formError}>{error}</p>}
 
             <LoginButton>Log In</LoginButton>
           </form>

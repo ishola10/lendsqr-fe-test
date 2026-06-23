@@ -79,6 +79,19 @@
     }
 }
 
+@media (max-width: 768px) {
+    .filterPopup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: min(360px, calc(100vw - 24px));
+        max-height: calc(100vh - 24px);
+        overflow-y: auto;
+        z-index: 1100;
+    }
+}
+
 .actionPopup {
     position: absolute;
     right: 0;
@@ -116,5 +129,12 @@
             height: 16px;
             color: vars.$heading-blue;
         }
+    }
+}
+
+@media (max-width: 768px) {
+    .actionPopup {
+        right: 8px;
+        width: min(200px, calc(100vw - 40px));
     }
 }
