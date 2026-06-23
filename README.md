@@ -23,18 +23,24 @@ https://muhammed-badmus-lendsqr-fe-test.vercel.app/
 ### 1. Authentication
 - Sleek, responsive Login page.
 - Password toggle visibility.
-- Form validation and structured layout.
+- Client-side form validation (email format + minimum password length).
+- Cookie-based session guard with route protection via middleware (`/dashboard`, `/users`, `/users/[id]`).
+- Graceful `Forgot Password` placeholder page (no broken route).
 
 ### 2. User Management
 - **Dashboard Overview**: Summary cards showing Total Users, Active Users, Users with Loans, and Users with Savings.
+- **Dashboard Overview** values are computed from real user data (no hardcoded stat figures).
 - **Dynamic Table**: A robust data table listing users with:
-  - **Filtering**: Filter by Organization, Username, Email, Phone Number, Date Joined, and Status.
+  - **Filtering**: Fully functional filters by Organization, Username, Email, Phone Number, Date Joined, and Status.
   - **Pagination**: Navigate through large datasets with adjustable items-per-page.
+  - **Smarter pagination behavior**: Safely handles filtered result sizes and avoids blank page states.
   - **Actions Menu**: View User Details, Blacklist User, or Activate User directly from the table.
+  - **Row navigation**: Click a row to open user details; supports keyboard access (`Enter`/`Space`) and `Ctrl/Cmd + click` for new tab.
+  - **Responsive mobile table UX**: Automatic stacked row/card presentation on smaller screens for readability.
 
 ### 3. User Details Profile
 - **Comprehensive View**: Detailed information organized into sections: Personal Info, Education & Employment, Socials, and Guarantor.
-- **Interactive Tabs**: Tabbed navigation (Documents, Bank Details, Loans, etc.) with 구현된 "Coming Soon" states.
+- **Interactive Tabs**: Tabbed navigation with populated content for General Details, Documents, Bank Details, Loans, Savings, and App/System.
 - **Dynamic Headers**: User Summary bar showing Avatar, Name, ID, Tier, and Bank Balance.
 
 ### 4. Smart Data Handling
@@ -50,6 +56,7 @@ This project implements a multi-layer caching strategy using `localStorage` to e
 - **User List Caching**: The main users list is cached locally (`lendsqr_users`) for instant loading on repeat visits.
 - **Status Persistence**: User status changes (Blacklisting/Activating) are saved in a shared override map (`lendsqr_status_overrides`). This ensures that if you blacklist a user on the detail page, they remain blacklisted on the main table and after a browser refresh.
 - **Detail Caching**: Viewed user details are cached individually to allow for persistent viewing of dynamic routes.
+- **Auth Session Persistence**: A lightweight auth cookie (`lendsqr_auth`) keeps protected routes guarded across refresh.
 
 ---
 
@@ -110,7 +117,14 @@ npm test
 
 ---
 
+## 📱 Responsiveness
+- **Desktop preserved**: Existing desktop layout and hierarchy remain intact.
+- **Tablet/mobile optimized**:
+  - Topbar search remains accessible on smaller breakpoints.
+  - Users table switches to a stacked card-like layout for small screens.
+  - Popups and pagination are adjusted to avoid clipping and improve touch usability.
+
 ## 📝 Design Tokens
 - **Colors**: Primary Teal (`#39CDCC`), Heading Blue (`#213F7D`), Text Grey (`#545F7D`).
 - **Typography**: Uses modern sans-serif fonts (Inter/Geist) for a premium fintech feel.
-- **Responsiveness**: Mobile-first approach with breakpoints for Tablet and Desktop views.
+- **Responsiveness**: Mobile/tablet breakpoints are actively supported across auth, table, and layout surfaces.

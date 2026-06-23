@@ -1,4 +1,4 @@
-import { KeyboardEvent, MouseEvent, useState, useEffect, useRef } from "react";
+import { KeyboardEvent, MouseEvent as ReactMouseEvent, useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { StatusTag } from "@/components/common/StatusTag";
 import { Pagination } from "@/components/common/Pagination";
@@ -55,7 +55,7 @@ export const UserTable = ({ users }: UserTableProps) => {
     }, [statusOverrides]);
 
     useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
+        const handleClickOutside = (event: globalThis.MouseEvent) => {
             if (tableRef.current && !tableRef.current.contains(event.target as Node)) {
                 setActiveActionMenuId(null);
                 setIsFilterPopupOpen(false);
@@ -140,7 +140,7 @@ export const UserTable = ({ users }: UserTableProps) => {
         setActiveActionMenuId(null);
     };
 
-    const handleRowClick = (id: string, event: MouseEvent<HTMLTableRowElement>) => {
+    const handleRowClick = (id: string, event: ReactMouseEvent<HTMLTableRowElement>) => {
         if (event.ctrlKey || event.metaKey) {
             window.open(`/users/${id}`, "_blank", "noopener,noreferrer");
             return;
